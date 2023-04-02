@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.cartorio.valkyria.model.entesDeclaradosUtilidadePublicaEstadual.EnteDeclaradoUtilidadePublicaEstadualEntity;
 import com.cartorio.valkyria.model.entesDeclaradosUtilidadePublicaEstadual.EnteDeclaradoUtilidadePublicaEstadualWSSupport;
+import com.cartorio.valkyria.model.utility.CustomMapper;
 import com.cartorio.valkyria.repository.EnteDeclaradoUtilidadePublicaEstadualRepository;
 import com.cartorio.valkyria.wsdl.GetEntesDeclaradosUtilidadePublicaEstadualResponse;
 
@@ -23,6 +24,9 @@ public class EnteDeclaradoUtilidadePublicaEstadualService {
 
   @Autowired
   private EnteDeclaradoUtilidadePublicaEstadualWSSupport enteSupport;
+
+  @Autowired
+  private CustomMapper mapper;
 
   @PostConstruct
   public void init() {
