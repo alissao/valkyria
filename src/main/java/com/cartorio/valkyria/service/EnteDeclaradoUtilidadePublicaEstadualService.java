@@ -27,10 +27,10 @@ public class EnteDeclaradoUtilidadePublicaEstadualService {
   @PostConstruct
   public void init() {
     logger.info("Populating database");
-    GetEntesDeclaradosUtilidadePublicaEstadualResponse entesDeclaradosResponse = enteSupport.getEntesDeclaradosUtilidadePublicaEstadualResponse();
+    // GetEntesDeclaradosUtilidadePublicaEstadualResponse entesDeclaradosResponse = enteSupport.getEntesDeclaradosUtilidadePublicaEstadualResponse();
     
-    entesDeclaradosResponse.getEntesDeclaradosUtilidadePublicaEstadual()
-        .stream().map(enteResponse -> )
+    // entesDeclaradosResponse.getEntesDeclaradosUtilidadePublicaEstadual()
+    //     .stream().map(enteResponse -> )
   }
   
 }
