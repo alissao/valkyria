@@ -6,7 +6,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.cartorio.valkyria.model.entesDeclaradosUtilidadePublicaEstadual.EnteDeclaradoUtilidadePublicaEstadualEntity;
 import com.cartorio.valkyria.model.entesDeclaradosUtilidadePublicaEstadual.EnteDeclaradoUtilidadePublicaEstadualWSSupport;
@@ -30,11 +29,22 @@ public class EnteDeclaradoUtilidadePublicaEstadualService {
 
   @PostConstruct
   public void init() {
-    logger.info("Populating database");
-    // GetEntesDeclaradosUtilidadePublicaEstadualResponse entesDeclaradosResponse = enteSupport.getEntesDeclaradosUtilidadePublicaEstadualResponse();
-    
-    // entesDeclaradosResponse.getEntesDeclaradosUtilidadePublicaEstadual()
-    //     .stream().map(enteResponse -> )
+    logger.info("Checking if database has EntesDeclaradosUtilidadePublicaEstadual populated...");
+
+    if (repository.count() < 1) {
+      logger.info("Database empty. Populating it...");
+      GetEntesDeclaradosUtilidadePublicaEstadualResponse entesDeclaradosResponse = enteSupport.getEntesDeclaradosUtilidadePublicaEstadualResponse();
+      
+      entesDeclaradosResponse.getEntesDeclaradosUtilidadePublicaEstadual()
+          .stream()
+          .map(enteResponse -> mapper.map(enteResponse, EnteDeclaradoUtilidadePublicaEstadualEntity.class))
+          .forEach(enteEntity -> 
+            repository.save(enteEntity)
+          );
+      logger.info("Database populated.");
+    } else {
+      logger.info("Database already populated. Starting service.");
+    }
   }
   
 }
