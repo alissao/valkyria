@@ -1,5 +1,7 @@
 package com.cartorio.valkyria.service;
 
+import java.util.Optional;
+
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.logging.Log;
@@ -45,6 +47,10 @@ public class EnteDeclaradoUtilidadePublicaEstadualService {
     } else {
       logger.info("Database already populated. Starting service.");
     }
+  }
+
+  public Optional<EnteDeclaradoUtilidadePublicaEstadualEntity> findByCdEntePub(Long cdEntePub) {
+    return repository.findByCdEntePub(cdEntePub);
   }
   
 }
