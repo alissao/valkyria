@@ -1,4 +1,4 @@
-package com.cartorio.valkyria.entesDeclaradosUtilidadePublicaEstadual;
+package com.cartorio.valkyria.service;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cartorio.valkyria.model.tjClient.TjWebServiceClient;
 import com.cartorio.valkyria.repository.EnteDeclaradoUtilidadePublicaEstadualRepository;
-import com.cartorio.valkyria.service.EnteDeclaradoUtilidadePublicaEstadualService;
 import com.cartorio.valkyria.wsdl.EnteDeclaradoUtilidadePublicaEstadual;
 
 @ExtendWith(MockitoExtension.class)

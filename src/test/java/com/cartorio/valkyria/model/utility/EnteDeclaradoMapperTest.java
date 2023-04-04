@@ -1,4 +1,4 @@
-package com.cartorio.valkyria.entesDeclaradosUtilidadePublicaEstadual;
+package com.cartorio.valkyria.model.utility;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
