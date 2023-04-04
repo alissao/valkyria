@@ -2,7 +2,6 @@ package com.cartorio.valkyria.service;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -19,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
@@ -26,6 +26,7 @@ import org.springframework.data.domain.PageRequest;
 
 import com.cartorio.valkyria.model.entesDeclaradosUtilidadePublicaEstadual.EnteDeclaradoUtilidadePublicaEstadualEntity;
 import com.cartorio.valkyria.model.tjClient.TjWebServiceClient;
+import com.cartorio.valkyria.model.utility.CustomMapper;
 import com.cartorio.valkyria.repository.EnteDeclaradoUtilidadePublicaEstadualRepository;
 import com.cartorio.valkyria.wsdl.EnteDeclaradoUtilidadePublicaEstadual;
 
@@ -38,6 +39,9 @@ public class EnteDeclaradoUtilidadePublicaEstadualServiceTest {
 
   @Mock
   private TjWebServiceClient mockWebServiceClient;
+  
+  @Mock
+  private CustomMapper mockMapper;
 
   @Autowired
   @InjectMocks
@@ -101,15 +105,15 @@ public class EnteDeclaradoUtilidadePublicaEstadualServiceTest {
     enteDeclarado2.setNomeEntidade("Vikings 2");
     enteDeclarado2.setLei("Lei numero dois");
     
-    when(mockRepository.findByNomeEntidade(anyString(), PageRequest.of(2, 1)))
+    when(mockRepository.findByNomeEntidade(anyString(), Mockito.any(PageRequest.class)))
         .thenReturn(new PageImpl<EnteDeclaradoUtilidadePublicaEstadualEntity>(
           List.of(enteDeclarado, enteDeclarado2),
-          PageRequest.of(2, 1),
+          PageRequest.of(1, 1),
           2
         ));
 
     // Act
-    var listOfEntes = mockService.findByNomeEntidade(anyString(), PageRequest.of(2, 1));
+    var listOfEntes = mockService.findByNomeEntidade("aquela entidade", PageRequest.of(2, 1));
 
     // Assert
     assertFalse(listOfEntes.getContent().isEmpty());
