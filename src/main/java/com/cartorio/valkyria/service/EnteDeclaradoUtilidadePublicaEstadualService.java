@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cartorio.valkyria.model.entesDeclaradosUtilidadePublicaEstadual.EnteDeclaradoUtilidadePublicaEstadualEntity;
-import com.cartorio.valkyria.model.entesDeclaradosUtilidadePublicaEstadual.EnteDeclaradoUtilidadePublicaEstadualWSSupport;
+import com.cartorio.valkyria.model.tjClient.TjWebServiceClient;
 import com.cartorio.valkyria.model.utility.CustomMapper;
 import com.cartorio.valkyria.repository.EnteDeclaradoUtilidadePublicaEstadualRepository;
 import com.cartorio.valkyria.wsdl.GetEntesDeclaradosUtilidadePublicaEstadualResponse;
@@ -22,7 +22,7 @@ public class EnteDeclaradoUtilidadePublicaEstadualService {
   private EnteDeclaradoUtilidadePublicaEstadualRepository<EnteDeclaradoUtilidadePublicaEstadualEntity> repository;
 
   @Autowired
-  private EnteDeclaradoUtilidadePublicaEstadualWSSupport enteSupport;
+  private TjWebServiceClient webServiceClient;
 
   @Autowired
   private CustomMapper mapper;
@@ -33,7 +33,7 @@ public class EnteDeclaradoUtilidadePublicaEstadualService {
 
     if (repository.count() < 1) {
       logger.info("Database empty. Populating it...");
-      GetEntesDeclaradosUtilidadePublicaEstadualResponse entesDeclaradosResponse = enteSupport.getEntesDeclaradosUtilidadePublicaEstadualResponse();
+      GetEntesDeclaradosUtilidadePublicaEstadualResponse entesDeclaradosResponse = webServiceClient.getEntesDeclaradosUtilidadePublicaEstadualResponse();
       
       entesDeclaradosResponse.getEntesDeclaradosUtilidadePublicaEstadual()
           .stream()
