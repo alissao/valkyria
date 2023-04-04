@@ -1,8 +1,9 @@
 package com.cartorio.valkyria.repository;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 import com.cartorio.valkyria.model.entesDeclaradosUtilidadePublicaEstadual.EnteDeclaradoUtilidadePublicaEstadualEntity;
@@ -11,6 +12,6 @@ public interface EnteDeclaradoUtilidadePublicaEstadualRepository<P> extends Crud
   
   Optional<EnteDeclaradoUtilidadePublicaEstadualEntity> findByCdEntePub(Long cdEntePub);
 
-  List<EnteDeclaradoUtilidadePublicaEstadualEntity> findByNomeEntidade(String nomeEntidade);
+  Page<EnteDeclaradoUtilidadePublicaEstadualEntity> findByNomeEntidade(String nomeEntidade, Pageable pageable);
 
 }

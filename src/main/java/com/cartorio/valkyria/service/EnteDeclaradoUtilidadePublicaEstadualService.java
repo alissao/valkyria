@@ -2,18 +2,23 @@ package com.cartorio.valkyria.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.cartorio.valkyria.model.entesDeclaradosUtilidadePublicaEstadual.EnteDeclaradoUtilidadePublicaEstadualEntity;
 import com.cartorio.valkyria.model.tjClient.TjWebServiceClient;
 import com.cartorio.valkyria.model.utility.CustomMapper;
 import com.cartorio.valkyria.repository.EnteDeclaradoUtilidadePublicaEstadualRepository;
+import com.cartorio.valkyria.wsdl.EnteDeclaradoUtilidadePublicaEstadual;
 import com.cartorio.valkyria.wsdl.GetEntesDeclaradosUtilidadePublicaEstadualResponse;
 
 @Service
@@ -54,8 +59,12 @@ public class EnteDeclaradoUtilidadePublicaEstadualService {
     return repository.findByCdEntePub(cdEntePub);
   }
 
-  public List<EnteDeclaradoUtilidadePublicaEstadualEntity> findByNomeEntidade(String nomeEntidade) {
-    return repository.findByNomeEntidade(nomeEntidade);
+  public Page<EnteDeclaradoUtilidadePublicaEstadual> findByNomeEntidade(String nomeEntidade, Pageable pageable) {
+    var pagedQuery = repository.findByNomeEntidade(nomeEntidade, pageable);
+    List<EnteDeclaradoUtilidadePublicaEstadual> mappedPagedContent = pagedQuery.toList().stream()
+        .map(entity -> mapper.map(entity, EnteDeclaradoUtilidadePublicaEstadual.class))
+        .collect(Collectors.toList());
+    return new PageImpl<EnteDeclaradoUtilidadePublicaEstadual>(mappedPagedContent, pageable, mappedPagedContent.size());
   }
   
 }
