@@ -1,5 +1,6 @@
 package com.cartorio.valkyria.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
@@ -51,6 +52,10 @@ public class EnteDeclaradoUtilidadePublicaEstadualService {
 
   public Optional<EnteDeclaradoUtilidadePublicaEstadualEntity> findByCdEntePub(Long cdEntePub) {
     return repository.findByCdEntePub(cdEntePub);
+  }
+
+  public List<EnteDeclaradoUtilidadePublicaEstadualEntity> findByNomeEntidade(String nomeEntidade) {
+    return repository.findByNomeEntidade(nomeEntidade);
   }
   
 }
